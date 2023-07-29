@@ -19,6 +19,7 @@ export default function Home() {
       <h1>Welcome</h1>
       <br></br>
       <button><Link href="aboutus">About Us</Link></button>
+      <button><Link href="signup">SignUp</Link></button>
 
       </Layout>
     </>

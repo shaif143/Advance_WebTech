@@ -5,9 +5,11 @@ import { ProviderLoginDTO, ProviderMessageDTO, ProviderRegDTO, ProviderUpdateDTO
 import { ProviderService } from "./provider.service";
 import { SalaryEntity } from "src/salary/salary.entity";
 import { ProviderEntity } from "./provider.entity";
+import { ServiceEntity } from "src/service/service.entity";
 export declare class ProviderController {
     private readonly ProviderService;
     constructor(ProviderService: ProviderService);
+    gethellow(): any;
     regProvider(ProviderRegInfo: ProviderRegDTO): any;
     loginProvider(ProviderLoginInfo: ProviderLoginDTO, session: any): Promise<"Provider Login Successful!" | "Provider Login Failed!">;
     Logout(session: any): {
@@ -15,7 +17,7 @@ export declare class ProviderController {
     };
     uploadProvider(photoObj: Express.Multer.File, session: any): Promise<"Provider Photo Uploaded!" | "Provider Photo Couldn't be Uploaded!">;
     getCivilianByProviderId(session: any): any;
-    getAllServices(session: any): any;
+    getAllServices(session: any): Promise<ServiceEntity[]>;
     getServicesByProvider(providerid: number): Promise<ProviderEntity[]>;
     updateProviderInfo(ProviderUpdateInfo: ProviderUpdateDTO, session: any): any;
     removeProvider(session: any): any;
@@ -23,6 +25,6 @@ export declare class ProviderController {
     viewProfile(session: any): any;
     regCivilian(CivilianRegInfo: CivilianRegDTO, session: any): Promise<import("../civilian/civilian.entity").CivilianEntity>;
     addSalary(salary: any): Promise<SalaryEntity>;
-    addServices(ServiceAddInfo: ServiceAddDTO, session: any): Promise<import("../service/service.entity").ServiceEntity>;
+    addServices(ServiceAddInfo: ServiceAddDTO, session: any): Promise<ServiceEntity>;
     sendMailToCivilian(messageInfo: ProviderMessageDTO, session: any): string;
 }

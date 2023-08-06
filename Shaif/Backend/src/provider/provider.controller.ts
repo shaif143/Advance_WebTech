@@ -11,10 +11,18 @@ import { ProviderService } from "./provider.service";
 import { SessionGuard } from "./session.guard";
 import { SalaryEntity } from "src/salary/salary.entity";
 import { ProviderEntity } from "./provider.entity";
+import { ServiceEntity } from "src/service/service.entity";
 
 @Controller('Provider')
 export class ProviderController {
     constructor (private readonly ProviderService:ProviderService) {}
+
+
+
+    @Get('/')
+    gethellow(): any {
+        return "hello!";
+      }
 
     @Post('register')
     @UsePipes(new ValidationPipe())
@@ -90,28 +98,39 @@ export class ProviderController {
     getCivilianByProviderId (@Session() session) : any {
         return this.ProviderService.getCivilianByProviderId(session.username);
     }
+
+
     @Get('getAllServices')
-    @UseGuards(SessionGuard)
+  async getAllServices(@Session() session): Promise<ServiceEntity[]> {
+    return this.ProviderService.getAllServices();
+  }
+
+    
+    /*@Get('getAllServices')
+    //@UseGuards(SessionGuard)
     getAllServices (@Session() session) : any {
         return this.ProviderService.getAllServices;
-    }
+    }*/
 
     @Get('/getservice/:providerid')
     getServicesByProvider(@Param('providerid', ParseIntPipe) providerid: number) {
-
         return this.ProviderService.getServicesByProvider(providerid);
     }
 
     @Put('updateinfo')
     @UsePipes(new ValidationPipe())
-    @UseGuards(SessionGuard)
+    //@UseGuards(SessionGuard)
     updateProviderInfo(@Body() ProviderUpdateInfo:ProviderUpdateDTO, @Session() session) : any {
         console.log(ProviderUpdateInfo);
         return this.ProviderService.updateProviderInfo(ProviderUpdateInfo, session.username);
     }
 
+    
+
+
+
     @Delete('remove')
-    @UseGuards(SessionGuard)
+    //@UseGuards(SessionGuard)
     removeProvider(@Session() session) : any {
         return this.ProviderService.removeProvider(session.username);
     }

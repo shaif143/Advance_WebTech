@@ -6,8 +6,8 @@ export declare class ProviderEntity {
     name: string;
     username: string;
     email: string;
-    contact: number;
     password: string;
+    contact: number;
     photoFileName: string;
     Civilians: CivilianEntity[];
     salary: SalaryEntity[];

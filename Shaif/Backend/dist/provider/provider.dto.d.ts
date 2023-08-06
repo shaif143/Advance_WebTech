@@ -3,8 +3,8 @@ export declare class ProviderRegDTO {
     name: string;
     username: string;
     email: string;
-    contact: number;
     password: string;
+    contact: number;
 }
 export declare class ProviderLoginDTO {
     username: string;

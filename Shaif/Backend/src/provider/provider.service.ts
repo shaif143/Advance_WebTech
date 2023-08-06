@@ -89,6 +89,9 @@ export class ProviderService {
         return this.ProviderRepo.findOneBy({id:Provider.id});
     }
 
+
+
+
     async removeProvider (ProviderUsername:string) {
         const Provider = await this.ProviderRepo.findOneBy({username:ProviderUsername});
         await this.ProviderRepo.delete(Provider.id);
@@ -152,7 +155,12 @@ export class ProviderService {
 
     async getAllServices(): Promise<ServiceEntity[]> {
         return this.ServiceRepo.find();
-    }
+      }
+
+    /*async getAllServices(): Promise<ServiceEntity[]> {
+        return this.ServiceRepo.find();
+    }*/
+    
     async getServicesByProvider(providerid: number): Promise<ProviderEntity[]> {
         return this.ProviderRepo.find({
             where: { id: providerid },

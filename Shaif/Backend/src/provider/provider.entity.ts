@@ -9,16 +9,21 @@ import { SalaryEntity } from "src/salary/salary.entity";
 export class ProviderEntity {
     @PrimaryGeneratedColumn()
     id:number;
+
     @Column({length:150})
     name:string;
+
     @Column({length:80, unique:true})
     username:string;
+
     @Column()
     email:string;
     @Column()
-    contact:number;
-    @Column()
+    
     password:string;
+    @Column()
+    contact:number;
+   
     @Column({nullable:true})
     photoFileName:string;
 

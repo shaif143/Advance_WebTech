@@ -25,6 +25,9 @@ let ProviderController = exports.ProviderController = class ProviderController {
     constructor(ProviderService) {
         this.ProviderService = ProviderService;
     }
+    gethellow() {
+        return "hello!";
+    }
     regProvider(ProviderRegInfo) {
         console.log(ProviderRegInfo);
         return this.ProviderService.regProvider(ProviderRegInfo);
@@ -55,8 +58,8 @@ let ProviderController = exports.ProviderController = class ProviderController {
     getCivilianByProviderId(session) {
         return this.ProviderService.getCivilianByProviderId(session.username);
     }
-    getAllServices(session) {
-        return this.ProviderService.getAllServices;
+    async getAllServices(session) {
+        return this.ProviderService.getAllServices();
     }
     getServicesByProvider(providerid) {
         return this.ProviderService.getServicesByProvider(providerid);
@@ -92,6 +95,12 @@ let ProviderController = exports.ProviderController = class ProviderController {
         return "E-mail Send Successful!";
     }
 };
+__decorate([
+    (0, common_1.Get)('/'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Object)
+], ProviderController.prototype, "gethellow", null);
 __decorate([
     (0, common_1.Post)('register'),
     (0, common_1.UsePipes)(new common_1.ValidationPipe()),
@@ -152,11 +161,10 @@ __decorate([
 ], ProviderController.prototype, "getCivilianByProviderId", null);
 __decorate([
     (0, common_1.Get)('getAllServices'),
-    (0, common_1.UseGuards)(session_guard_1.SessionGuard),
     __param(0, (0, common_1.Session)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", Object)
+    __metadata("design:returntype", Promise)
 ], ProviderController.prototype, "getAllServices", null);
 __decorate([
     (0, common_1.Get)('/getservice/:providerid'),
@@ -168,7 +176,6 @@ __decorate([
 __decorate([
     (0, common_1.Put)('updateinfo'),
     (0, common_1.UsePipes)(new common_1.ValidationPipe()),
-    (0, common_1.UseGuards)(session_guard_1.SessionGuard),
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.Session)()),
     __metadata("design:type", Function),
@@ -177,7 +184,6 @@ __decorate([
 ], ProviderController.prototype, "updateProviderInfo", null);
 __decorate([
     (0, common_1.Delete)('remove'),
-    (0, common_1.UseGuards)(session_guard_1.SessionGuard),
     __param(0, (0, common_1.Session)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),

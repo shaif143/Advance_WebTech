@@ -18,19 +18,23 @@ export class ProviderRegDTO {
     @IsNotEmpty({message: "E-mail Must be Filled!"})
     email:string;
 
-    @IsInt({message: "Invalid Contact!"})
-    contact:number;
-
     @IsString({message: "Invalid Password!"})
     @IsNotEmpty({message: "Password Must be Filled!"})
     password:string;
+
+    
+    contact:number;
+
+    
 }
 
 export class ProviderLoginDTO {
+
     @IsString({message: "Invalid Name"})
     @Matches(/^[a-zA-Z0-9@._$]+$/, {message:"Use Valid Username Format"})
     @IsNotEmpty({message: "Username Must be Filled!"})
     username:string;
+   
 
     @IsString({message: "Invalid Password!"})
     @IsNotEmpty({message: "Password Must be Filled!"})
@@ -44,7 +48,7 @@ export class DeleteQry {
 
 export class ProviderUpdateDTO {
     id:number;
-    
+
     @IsString({message: "Invalid Name"})
     @Matches(/^[a-z A-Z]+$/, {message:"Use Valid Name Format"})
     @MaxLength(200)
@@ -53,10 +57,10 @@ export class ProviderUpdateDTO {
     @IsEmail({}, {message: "Invalid E-mail!"})
     email:string;
 
-    @IsInt({message: "Invalid Contact!"})
     contact:number;
 
     @IsString({message: "Invalid Password!"})
+    @Matches( /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@#$%^*!()<>?]).*$/, {message:"Please enter a valid password"})
     password:string;
 }
 

@@ -5,6 +5,9 @@ const app_module_1 = require("./app.module");
 const session = require("express-session");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
+    const express = require('express');
+    const cors = require('cors');
+    app.use(cors());
     app.use(session({
         secret: 'my-secret',
         resave: false,

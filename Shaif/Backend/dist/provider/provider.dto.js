@@ -33,10 +33,6 @@ __decorate([
     __metadata("design:type", String)
 ], ProviderRegDTO.prototype, "email", void 0);
 __decorate([
-    (0, class_validator_1.IsInt)({ message: "Invalid Contact!" }),
-    __metadata("design:type", Number)
-], ProviderRegDTO.prototype, "contact", void 0);
-__decorate([
     (0, class_validator_1.IsString)({ message: "Invalid Password!" }),
     (0, class_validator_1.IsNotEmpty)({ message: "Password Must be Filled!" }),
     __metadata("design:type", String)
@@ -72,11 +68,8 @@ __decorate([
     __metadata("design:type", String)
 ], ProviderUpdateDTO.prototype, "email", void 0);
 __decorate([
-    (0, class_validator_1.IsInt)({ message: "Invalid Contact!" }),
-    __metadata("design:type", Number)
-], ProviderUpdateDTO.prototype, "contact", void 0);
-__decorate([
     (0, class_validator_1.IsString)({ message: "Invalid Password!" }),
+    (0, class_validator_1.Matches)(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@#$%^*!()<>?]).*$/, { message: "Please enter a valid password" }),
     __metadata("design:type", String)
 ], ProviderUpdateDTO.prototype, "password", void 0);
 class ProviderInfoDTO {

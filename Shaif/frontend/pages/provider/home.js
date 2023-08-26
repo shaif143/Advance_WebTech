@@ -1,6 +1,7 @@
 
 import dynamic from "next/dynamic";
 import SessionCheck from "../utils/sessionCheck";
+
 const Layout = dynamic(()=>import('../Layout/layout'),{
   ssr: false,
 })

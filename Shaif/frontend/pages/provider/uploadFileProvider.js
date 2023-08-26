@@ -1,18 +1,30 @@
 import dynamic from "next/dynamic";
-import Layout from "../Layout/layout";
+
+
+
+const Layout = dynamic(()=>import('../Layout/layout'),{
+    ssr: false,
+  });
+  
+  const Title = dynamic(()=>import('../Layout/title'),{
+    ssr: false,
+  });
 
 const DynamicUploadFile = dynamic(import('../component/uploadFile'));
 
 const UploadFileProvider = () => {
     return (
         <>
-            <Layout title="File Upload - Provider">
+            <Title page="UploadPicture" />
+            <Layout>
 
                 <div>
                     <DynamicUploadFile />
                 </div>
 
-            </Layout>
+                </Layout>
+
+           
         </>
     )
 };

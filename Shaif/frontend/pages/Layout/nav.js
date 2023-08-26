@@ -30,7 +30,10 @@ export default function Nav(props){
     } catch (error) {
         console.error('Sign-out error:', error);
     }
-}
+
+
+};
+
 
 
     return(
@@ -38,16 +41,20 @@ export default function Nav(props){
     <>
     <div className="navbar bg-blue-200">
   <div className="flex-1 space-x-4">
-    <a className="btn btn-outline normal-case text-xl"><button><Link href="/">Home</Link></button></a>
+    <a className="btn btn-outline normal-case text-xl"><button><Link href="../provider/home">Home</Link></button></a>
+    <a className="btn btn-outline normal-case text-xl"><button><Link href="../provider/providerProfile">Profile</Link></button></a>
+    <a className="btn btn-outline normal-case text-xl"><button><Link href="../provider/updateProvider">Update Profile</Link></button></a>
+    <a className="btn btn-outline normal-case text-xl"><button><Link href="../provider/provideService">Provide Service</Link></button></a>
+    
     {/*<a className="btn btn-ghost normal-case text-xl"><button><Link href="aboutus">About Us</Link></button></a>
     <a className="btn btn-ghost normal-case text-xl"><button><Link href="updateprofile">Update Profile</Link></button></a>
     
     <a className="btn btn-outline normal-case text-xl"><button><Link href="addservices">Add New Services</Link></button></a>
     <a className="btn btn-outline normal-case text-xl"><button><Link href="registercivilian">Register Civilian</Link></button></a>
     {/*<a className="btn btn-ghost normal-case text-xl"><button><Link href="viewprofile">Profile</Link></button></a>*/}
-    <a className="btn btn-outline normal-case text-xl"><button><Link href="salaryinformation">Salary Information</Link></button></a>
-    <a className="btn btn-outline normal-case text-xl"><button><Link href="emailcivilian">Email Civilian</Link></button></a>
-    <a className="btn btn-outline normal-case text-xl"><button><Link href="servicehistory">Service History</Link></button></a>
+    
+    <a className="btn btn-outline normal-case text-xl"><button><Link href="../provider/sendMail">Email Civilian</Link></button></a>
+    <a className="btn btn-outline normal-case text-xl"><button><Link href="../provider/history">Service History</Link></button></a>
     <a className="btn btn-ghost normal-case text-xl"><button><Link href="../provider/uploadFileProvider">Upload Profile Picture</Link></button></a>
     {/*<a className="btn btn-ghost normal-case text-xl"><button><Link href="deleteprovider">Delete Provider</Link></button></a>*/}
    
@@ -59,7 +66,9 @@ export default function Nav(props){
     <div className="dropdown dropdown-end">
       <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
         <div className="w-10 rounded-full">
-          <img src="" />
+        <div className="profile-image" >
+        <img src={process.env.NEXT_PUBLIC_API_BASE_URL+ `/photo?${Date.now()}`}  />
+    </div>
         </div>
       </label>
       <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
@@ -69,7 +78,7 @@ export default function Nav(props){
             <span className="badge">New</span>
           </a>
         </li>
-        <li><a>Settings</a></li>
+        <li><a className="btn btn-outline normal-case text-xl"><button><Link href="../provider/addBankInfo">Add Bank Details</Link></button></a></li>
         <li><a><button onClick={Logout} class="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-1 text-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800"> Sign Out </button></a></li>
       </ul>
     </div>

@@ -1,4 +1,4 @@
-export default function MyHeader(props){
+export default function Header(props){
 
 
 return(

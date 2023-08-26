@@ -21,8 +21,11 @@ const FileUploadComponent = () => {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
+        withCredentials: true
       });
 
+      alert('Profile picture update Successfully!')
+      window.location.reload();
       console.log(response.data); // Response from the backend
     } catch (error) {
       console.error('Error uploading file:', error);
@@ -32,11 +35,12 @@ const FileUploadComponent = () => {
 
   return (
     
-    <div>
+    <>
+    <SessionCheck></SessionCheck>
       
       <input type="file" accept=".jpg, .jpeg, .png, .webp, .gif" onChange={handleFileChange} />
       <button onClick={handleUpload}>Upload</button>
-    </div>
+    </>
   );
 };
 

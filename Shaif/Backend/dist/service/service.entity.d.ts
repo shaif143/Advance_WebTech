@@ -1,10 +1,9 @@
 import { ProviderEntity } from "src/provider/provider.entity";
 export declare class ServiceEntity {
     id: number;
-    servicetype: string;
-    username: string;
+    serviceType: string;
     contact: number;
-    usefullinks: string;
+    usefullLinks: string;
     ProviderID: number;
     Provider: ProviderEntity;
 }

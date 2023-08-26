@@ -5,11 +5,13 @@ import { CivilianEntity } from "src/civilian/civilian.entity";
 import { ProviderController } from "./provider.controller";
 import { ProviderEntity } from "./provider.entity";
 import { ProviderService } from "./provider.service";
-import { SalaryEntity } from "src/salary/salary.entity";
+import { BankingEntity } from "src/bankingDetails/bankinfo.entity";
 import { MailerModule } from "@nestjs-modules/mailer";
+import { EmailEntity } from "./email-log.entity";
+
 
 @Module({
-  imports: [TypeOrmModule.forFeature([ProviderEntity, CivilianEntity, ServiceEntity,SalaryEntity]),MailerModule.forRoot(
+  imports: [TypeOrmModule.forFeature([ProviderEntity, CivilianEntity, ServiceEntity,BankingEntity, EmailEntity]),MailerModule.forRoot(
     {
         transport: {
             host: 'smtp.gmail.com',
@@ -18,7 +20,7 @@ import { MailerModule } from "@nestjs-modules/mailer";
             secure: true,
             auth: {
                 user: 'daruchinicheradip@gmail.com',
-                pass: 'dxyekyeighltfntb'
+                pass: 'nfzymfrzjbbdcpmi'
             }
         }
     }

@@ -93,6 +93,11 @@ class ProviderMessageDTO {
 }
 exports.ProviderMessageDTO = ProviderMessageDTO;
 __decorate([
+    (0, class_validator_1.IsString)({ message: "Invalid Receiver!" }),
+    (0, class_validator_1.IsNotEmpty)({ message: "Receiver Must be Filled!" }),
+    __metadata("design:type", String)
+], ProviderMessageDTO.prototype, "receiver", void 0);
+__decorate([
     (0, class_validator_1.IsString)({ message: "Invalid Subject!" }),
     (0, class_validator_1.IsNotEmpty)({ message: "Subject Must be Filled!" }),
     __metadata("design:type", String)

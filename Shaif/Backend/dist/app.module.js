@@ -12,21 +12,13 @@ const typeorm_1 = require("@nestjs/typeorm");
 const provider_module_1 = require("./provider/provider.module");
 const service_module_1 = require("./service/service.module");
 const civilian_module_1 = require("./civilian/civilian.module");
-const salary_module_1 = require("./salary/salary.module");
+const bankinfo_module_1 = require("./bankingDetails/bankinfo.module");
+const typeorm_config_1 = require("./config/typeorm.config");
 let AppModule = exports.AppModule = class AppModule {
 };
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [provider_module_1.ProviderModule, service_module_1.ServiceModule, civilian_module_1.CivilianModule, salary_module_1.SalaryModule, typeorm_1.TypeOrmModule.forRoot({
-                type: 'postgres',
-                host: 'localhost',
-                port: 5432,
-                username: 'postgres',
-                password: '123',
-                database: 'emergency_helpline_db',
-                autoLoadEntities: true,
-                synchronize: true,
-            })],
+        imports: [provider_module_1.ProviderModule, service_module_1.ServiceModule, civilian_module_1.CivilianModule, bankinfo_module_1.BankingModule, typeorm_1.TypeOrmModule.forRoot(typeorm_config_1.typeOrmConfig),],
         controllers: [],
         providers: [],
     })

@@ -79,6 +79,10 @@ export class ProviderInfoDTO {
     contact:number;
 }
 export class ProviderMessageDTO {
+    @IsString({message: "Invalid Receiver!"})
+    @IsNotEmpty({message: "Receiver Must be Filled!"})
+    receiver:string;
+
     @IsString({message: "Invalid Subject!"})
     @IsNotEmpty({message: "Subject Must be Filled!"})
     subject:string;

@@ -5,7 +5,6 @@ export declare class CivilianRegDTO {
     email: string;
     contact: number;
     age: number;
-    gender: string;
     profession: string;
     ProviderID: number;
 }

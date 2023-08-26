@@ -13,7 +13,7 @@ exports.ProviderEntity = void 0;
 const service_entity_1 = require("../service/service.entity");
 const civilian_entity_1 = require("../civilian/civilian.entity");
 const typeorm_1 = require("typeorm");
-const salary_entity_1 = require("../salary/salary.entity");
+const bankinfo_entity_1 = require("../bankingDetails/bankinfo.entity");
 let ProviderEntity = exports.ProviderEntity = class ProviderEntity {
 };
 __decorate([
@@ -49,9 +49,9 @@ __decorate([
     __metadata("design:type", Array)
 ], ProviderEntity.prototype, "Civilians", void 0);
 __decorate([
-    (0, typeorm_1.OneToOne)(() => salary_entity_1.SalaryEntity, salary => salary.Provider),
-    __metadata("design:type", Array)
-], ProviderEntity.prototype, "salary", void 0);
+    (0, typeorm_1.OneToOne)(() => bankinfo_entity_1.BankingEntity, (bankinfo) => bankinfo.Provider, { cascade: ["remove"] }),
+    __metadata("design:type", bankinfo_entity_1.BankingEntity)
+], ProviderEntity.prototype, "bankinfo", void 0);
 __decorate([
     (0, typeorm_1.OneToMany)(() => service_entity_1.ServiceEntity, Service => Service.Provider, { cascade: ["remove"] }),
     __metadata("design:type", Array)

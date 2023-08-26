@@ -1,6 +1,6 @@
 import { ServiceEntity } from "src/service/service.entity";
 import { CivilianEntity } from "src/civilian/civilian.entity";
-import { SalaryEntity } from "src/salary/salary.entity";
+import { BankingEntity } from "src/bankingDetails/bankinfo.entity";
 export declare class ProviderEntity {
     id: number;
     name: string;
@@ -10,6 +10,6 @@ export declare class ProviderEntity {
     contact: number;
     photoFileName: string;
     Civilians: CivilianEntity[];
-    salary: SalaryEntity[];
+    bankinfo: BankingEntity;
     Services: ServiceEntity[];
 }

@@ -15,22 +15,7 @@ class ServiceAddDTO {
 }
 exports.ServiceAddDTO = ServiceAddDTO;
 __decorate([
-    (0, class_validator_1.IsString)({ message: "Invalid Name" }),
-    (0, class_validator_1.Matches)(/^[a-z A-Z]+$/, { message: "Use Valid Name Format" }),
-    (0, class_validator_1.MaxLength)(200),
-    __metadata("design:type", String)
-], ServiceAddDTO.prototype, "servicetype", void 0);
-__decorate([
-    (0, class_validator_1.IsString)({ message: "Invalid Name" }),
-    (0, class_validator_1.Matches)(/^[a-zA-Z0-9@._$]+$/, { message: "Use Valid Username Format" }),
-    __metadata("design:type", String)
-], ServiceAddDTO.prototype, "username", void 0);
-__decorate([
-    (0, class_validator_1.IsInt)({ message: "Invalid Contact!" }),
+    (0, class_validator_1.IsNotEmpty)({ message: "Contact must be provided!" }),
     __metadata("design:type", Number)
 ], ServiceAddDTO.prototype, "contact", void 0);
-__decorate([
-    (0, class_validator_1.IsString)({ message: "Invalid Name!" }),
-    __metadata("design:type", String)
-], ServiceAddDTO.prototype, "usefullinks", void 0);
 //# sourceMappingURL=service.dto.js.map

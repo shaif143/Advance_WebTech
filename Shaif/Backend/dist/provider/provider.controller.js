@@ -18,36 +18,37 @@ const platform_express_1 = require("@nestjs/platform-express");
 const multer_1 = require("multer");
 const service_dto_1 = require("../service/service.dto");
 const civilian_dto_1 = require("../civilian/civilian.dto");
+const bankinfo_dto_1 = require("../bankingDetails/bankinfo.dto");
 const provider_dto_1 = require("./provider.dto");
 const provider_service_1 = require("./provider.service");
 const session_guard_1 = require("./session.guard");
+const typeorm_1 = require("@nestjs/typeorm");
+const email_log_entity_1 = require("./email-log.entity");
+const typeorm_2 = require("typeorm");
 let ProviderController = exports.ProviderController = class ProviderController {
-    constructor(ProviderService) {
+    constructor(ProviderService, emailLogRepository) {
         this.ProviderService = ProviderService;
+        this.emailLogRepository = emailLogRepository;
     }
-    gethellow() {
-        return "hello!";
-    }
-    regProvider(ProviderRegInfo) {
-        console.log(ProviderRegInfo);
-        return this.ProviderService.regProvider(ProviderRegInfo);
+    async regProvider(providerRegInfo) {
+        try {
+            await this.ProviderService.regProvider(providerRegInfo);
+            return "Provider Registration Successful!";
+        }
+        catch (error) {
+            throw new common_1.HttpException('Internal Server Error', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
     async loginProvider(ProviderLoginInfo, session) {
         console.log(ProviderLoginInfo);
-        if (await this.ProviderService.loginProvider(ProviderLoginInfo)) {
+        const result = await this.ProviderService.loginProvider(ProviderLoginInfo);
+        if (result) {
             session.username = ProviderLoginInfo.username;
-            return "Provider Login Successful!";
+            console.log("login session username: " + session.username);
+            return session.username;
         }
         else {
-            return "Provider Login Failed!";
-        }
-    }
-    Logout(session) {
-        if (session.destroy()) {
-            return { message: "Log out" };
-        }
-        else {
-            throw new common_1.UnauthorizedException("Invalid action");
+            return new common_1.NotFoundException({ message: "Manager Not Found!" });
         }
     }
     uploadProvider(photoObj, session) {
@@ -55,18 +56,78 @@ let ProviderController = exports.ProviderController = class ProviderController {
         const fileName = photoObj.filename;
         return this.ProviderService.uploadProvider(fileName, session.username);
     }
-    getCivilianByProviderId(session) {
-        return this.ProviderService.getCivilianByProviderId(session.username);
+    async getProviderPhoto(filename, res) {
+        return res.sendFile(filename, { root: './uploads' });
     }
-    async getAllServices(session) {
-        return this.ProviderService.getAllServices();
+    async getLoggedInProviderPhoto(session, res) {
+        const username = session.username;
+        const filename = await this.ProviderService.getProviderPhotoFileName(username);
+        if (filename) {
+            return res.redirect(`/provider/photo/${encodeURIComponent(filename)}`);
+        }
+        else {
+            return "Something went wrong";
+        }
     }
-    getServicesByProvider(providerid) {
-        return this.ProviderService.getServicesByProvider(providerid);
+    viewProviderProfile(session) {
+        return this.ProviderService.viewProviderProfile(session.username);
     }
     updateProviderInfo(ProviderUpdateInfo, session) {
         console.log(ProviderUpdateInfo);
-        return this.ProviderService.updateProviderInfo(ProviderUpdateInfo, session.username);
+        this.ProviderService.updateProviderInfo(ProviderUpdateInfo, session.username);
+        return "Provider info updated successfully!";
+    }
+    addServices(ServiceAddInfo, session) {
+        console.log(ServiceAddInfo);
+        this.ProviderService.addServices(ServiceAddInfo, session.username);
+        return "Service Added Successfully";
+    }
+    addBankInfo(addBankInfo, session) {
+        try {
+            console.log(addBankInfo);
+            return this.ProviderService.addBankInfo(addBankInfo, session.username);
+        }
+        catch (error) {
+            throw new common_1.HttpException('Internal Server Error', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    regCivilian(CivilianRegInfo, session) {
+        try {
+            console.log(CivilianRegInfo);
+            return this.ProviderService.regCivilian(CivilianRegInfo, session.username);
+        }
+        catch (error) {
+            throw new common_1.HttpException('Internal Server Error', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    sendMailToCivilian(messageInfo, session) {
+        console.log(messageInfo);
+        this.ProviderService.sendMailToCivilian(messageInfo, session.username);
+        return "E-mail Send Successful!";
+    }
+    viewNotification(session) {
+        return this.ProviderService.viewService(session.username);
+    }
+    viewBankInfo(session) {
+        return this.ProviderService.viewBankInfo(session.username);
+    }
+    viewCivilian(session) {
+        return this.ProviderService.viewCivilian(session.username);
+    }
+    viewEmails(session) {
+        return this.ProviderService.viewEmails(session.username);
+    }
+    logoutManager(req) {
+        if (req.session.destroy()) {
+            console.log('Manager Sign Out');
+            return true;
+        }
+        else {
+            throw new common_1.UnauthorizedException("Invalid Actions : Cannot Sign Out Manager!");
+        }
+    }
+    getCivilianByProviderId(session) {
+        return this.ProviderService.getCivilianByProviderId(session.username);
     }
     removeProvider(session) {
         return this.ProviderService.removeProvider(session.username);
@@ -74,40 +135,14 @@ let ProviderController = exports.ProviderController = class ProviderController {
     removeCivilian(CivilianId, session) {
         return this.ProviderService.removeCivilian(CivilianId, session.username);
     }
-    viewProfile(session) {
-        return this.ProviderService.viewProfile(session.username);
-    }
-    regCivilian(CivilianRegInfo, session) {
-        console.log(CivilianRegInfo);
-        return this.ProviderService.regCivilian(CivilianRegInfo, session.username);
-    }
-    addSalary(salary) {
-        console.log(salary);
-        return this.ProviderService.addSalary(salary);
-    }
-    addServices(ServiceAddInfo, session) {
-        console.log(ServiceAddInfo);
-        return this.ProviderService.addServices(ServiceAddInfo, session.username);
-    }
-    sendMailToCivilian(messageInfo, session) {
-        console.log(messageInfo);
-        this.ProviderService.sendMailToCivilian(messageInfo, session.username);
-        return "E-mail Send Successful!";
-    }
 };
-__decorate([
-    (0, common_1.Get)('/'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", Object)
-], ProviderController.prototype, "gethellow", null);
 __decorate([
     (0, common_1.Post)('register'),
     (0, common_1.UsePipes)(new common_1.ValidationPipe()),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [provider_dto_1.ProviderRegDTO]),
-    __metadata("design:returntype", Object)
+    __metadata("design:returntype", Promise)
 ], ProviderController.prototype, "regProvider", null);
 __decorate([
     (0, common_1.Post)('login'),
@@ -119,18 +154,11 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ProviderController.prototype, "loginProvider", null);
 __decorate([
-    (0, common_1.Get)('/signout'),
-    __param(0, (0, common_1.Session)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", void 0)
-], ProviderController.prototype, "Logout", null);
-__decorate([
     (0, common_1.Put)('upload'),
     (0, common_1.UseGuards)(session_guard_1.SessionGuard),
     (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('image', {
         fileFilter: (req, file, cb) => {
-            if (file.originalname.match(/^.*\.(jpg|webp|png|jpeg)$/)) {
+            if (file.originalname.match(/^.*\.(jpg|webp|png|jpeg|gif)$/)) {
                 cb(null, true);
             }
             else {
@@ -152,6 +180,119 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], ProviderController.prototype, "uploadProvider", null);
 __decorate([
+    (0, common_1.Get)('photo/:filename'),
+    __param(0, (0, common_1.Param)('filename')),
+    __param(1, (0, common_1.Res)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", Promise)
+], ProviderController.prototype, "getProviderPhoto", null);
+__decorate([
+    (0, common_1.Get)('photo'),
+    (0, common_1.UseGuards)(session_guard_1.SessionGuard),
+    __param(0, (0, common_1.Session)()),
+    __param(1, (0, common_1.Res)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", Promise)
+], ProviderController.prototype, "getLoggedInProviderPhoto", null);
+__decorate([
+    (0, common_1.Get)('/profile'),
+    (0, common_1.UseGuards)(session_guard_1.SessionGuard),
+    __param(0, (0, common_1.Session)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], ProviderController.prototype, "viewProviderProfile", null);
+__decorate([
+    (0, common_1.Put)('updateinfo'),
+    (0, common_1.UsePipes)(new common_1.ValidationPipe()),
+    (0, common_1.UseGuards)(session_guard_1.SessionGuard),
+    __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Session)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [provider_dto_1.ProviderUpdateDTO, Object]),
+    __metadata("design:returntype", Object)
+], ProviderController.prototype, "updateProviderInfo", null);
+__decorate([
+    (0, common_1.Post)('provideServices'),
+    (0, common_1.UsePipes)(new common_1.ValidationPipe()),
+    (0, common_1.UseGuards)(session_guard_1.SessionGuard),
+    __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Session)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [service_dto_1.ServiceAddDTO, Object]),
+    __metadata("design:returntype", Object)
+], ProviderController.prototype, "addServices", null);
+__decorate([
+    (0, common_1.Post)('/addBankInfo'),
+    (0, common_1.UsePipes)(new common_1.ValidationPipe()),
+    (0, common_1.UseGuards)(session_guard_1.SessionGuard),
+    __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Session)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [bankinfo_dto_1.BankInfoDTO, Object]),
+    __metadata("design:returntype", Object)
+], ProviderController.prototype, "addBankInfo", null);
+__decorate([
+    (0, common_1.Post)('/addCivilian'),
+    (0, common_1.UsePipes)(new common_1.ValidationPipe()),
+    (0, common_1.UseGuards)(session_guard_1.SessionGuard),
+    __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Session)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [civilian_dto_1.CivilianRegDTO, Object]),
+    __metadata("design:returntype", Object)
+], ProviderController.prototype, "regCivilian", null);
+__decorate([
+    (0, common_1.Post)('sendmail/civilian'),
+    (0, common_1.UseGuards)(session_guard_1.SessionGuard),
+    __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Session)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [provider_dto_1.ProviderMessageDTO, Object]),
+    __metadata("design:returntype", void 0)
+], ProviderController.prototype, "sendMailToCivilian", null);
+__decorate([
+    (0, common_1.Get)('/getAllservices'),
+    (0, common_1.UseGuards)(session_guard_1.SessionGuard),
+    __param(0, (0, common_1.Session)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], ProviderController.prototype, "viewNotification", null);
+__decorate([
+    (0, common_1.Get)('/getBankInfo'),
+    (0, common_1.UseGuards)(session_guard_1.SessionGuard),
+    __param(0, (0, common_1.Session)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], ProviderController.prototype, "viewBankInfo", null);
+__decorate([
+    (0, common_1.Get)('/getAllCivilian'),
+    (0, common_1.UseGuards)(session_guard_1.SessionGuard),
+    __param(0, (0, common_1.Session)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], ProviderController.prototype, "viewCivilian", null);
+__decorate([
+    (0, common_1.Get)('/emailHistory'),
+    (0, common_1.UseGuards)(session_guard_1.SessionGuard),
+    __param(0, (0, common_1.Session)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], ProviderController.prototype, "viewEmails", null);
+__decorate([
+    (0, common_1.Post)('logout'),
+    __param(0, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], ProviderController.prototype, "logoutManager", null);
+__decorate([
     (0, common_1.Get)('search/Civilian'),
     (0, common_1.UseGuards)(session_guard_1.SessionGuard),
     __param(0, (0, common_1.Session)()),
@@ -159,29 +300,6 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Object)
 ], ProviderController.prototype, "getCivilianByProviderId", null);
-__decorate([
-    (0, common_1.Get)('getAllServices'),
-    __param(0, (0, common_1.Session)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", Promise)
-], ProviderController.prototype, "getAllServices", null);
-__decorate([
-    (0, common_1.Get)('/getservice/:providerid'),
-    __param(0, (0, common_1.Param)('providerid', common_1.ParseIntPipe)),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
-    __metadata("design:returntype", void 0)
-], ProviderController.prototype, "getServicesByProvider", null);
-__decorate([
-    (0, common_1.Put)('updateinfo'),
-    (0, common_1.UsePipes)(new common_1.ValidationPipe()),
-    __param(0, (0, common_1.Body)()),
-    __param(1, (0, common_1.Session)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [provider_dto_1.ProviderUpdateDTO, Object]),
-    __metadata("design:returntype", Object)
-], ProviderController.prototype, "updateProviderInfo", null);
 __decorate([
     (0, common_1.Delete)('remove'),
     __param(0, (0, common_1.Session)()),
@@ -198,52 +316,10 @@ __decorate([
     __metadata("design:paramtypes", [Number, Object]),
     __metadata("design:returntype", Object)
 ], ProviderController.prototype, "removeCivilian", null);
-__decorate([
-    (0, common_1.Get)('/profile'),
-    (0, common_1.UseGuards)(session_guard_1.SessionGuard),
-    __param(0, (0, common_1.Session)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", Object)
-], ProviderController.prototype, "viewProfile", null);
-__decorate([
-    (0, common_1.Post)('register/Civilian'),
-    (0, common_1.UsePipes)(new common_1.ValidationPipe()),
-    (0, common_1.UseGuards)(session_guard_1.SessionGuard),
-    __param(0, (0, common_1.Body)()),
-    __param(1, (0, common_1.Session)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [civilian_dto_1.CivilianRegDTO, Object]),
-    __metadata("design:returntype", void 0)
-], ProviderController.prototype, "regCivilian", null);
-__decorate([
-    (0, common_1.Post)('/addSalary'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", void 0)
-], ProviderController.prototype, "addSalary", null);
-__decorate([
-    (0, common_1.Post)('addServices'),
-    (0, common_1.UsePipes)(new common_1.ValidationPipe()),
-    (0, common_1.UseGuards)(session_guard_1.SessionGuard),
-    __param(0, (0, common_1.Body)()),
-    __param(1, (0, common_1.Session)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [service_dto_1.ServiceAddDTO, Object]),
-    __metadata("design:returntype", void 0)
-], ProviderController.prototype, "addServices", null);
-__decorate([
-    (0, common_1.Post)('sendmail/civilian'),
-    (0, common_1.UseGuards)(session_guard_1.SessionGuard),
-    __param(0, (0, common_1.Body)()),
-    __param(1, (0, common_1.Session)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [provider_dto_1.ProviderMessageDTO, Object]),
-    __metadata("design:returntype", void 0)
-], ProviderController.prototype, "sendMailToCivilian", null);
 exports.ProviderController = ProviderController = __decorate([
     (0, common_1.Controller)('Provider'),
-    __metadata("design:paramtypes", [provider_service_1.ProviderService])
+    __param(1, (0, typeorm_1.InjectRepository)(email_log_entity_1.EmailEntity)),
+    __metadata("design:paramtypes", [provider_service_1.ProviderService,
+        typeorm_2.Repository])
 ], ProviderController);
 //# sourceMappingURL=provider.controller.js.map

@@ -1,8 +1,9 @@
 import { ServiceEntity } from "src/service/service.entity";
 import { CivilianEntity } from "src/civilian/civilian.entity";
-import { Column, Entity, JoinTable, ManyToMany, OneToMany, OneToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
-import { SalaryEntity } from "src/salary/salary.entity";
-//import { NotificationEntity } from './notification.entity';
+import { Column, Entity, JoinColumn, JoinTable, ManyToMany, OneToMany, OneToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+import { BankingEntity } from "src/bankingDetails/bankinfo.entity";
+import { EmailEntity } from "./email-log.entity";
+
 
 
 @Entity('Provider')
@@ -28,20 +29,20 @@ export class ProviderEntity {
     photoFileName:string;
 
     @OneToMany(() => CivilianEntity, Civilian => Civilian.Provider, {cascade: ["remove"]})
-        Civilians:CivilianEntity[];
+    Civilians:CivilianEntity[];
+
+      
+
+
+
+
+    @OneToOne(() => BankingEntity, (bankinfo) => bankinfo.Provider, {cascade: ["remove"]}) // specify inverse side as a second parameter
+    bankinfo: BankingEntity   
     
-    @OneToOne(() => SalaryEntity, salary => salary.Provider)
-        salary: SalaryEntity[];
 
 
     @OneToMany(() => ServiceEntity, Service => Service.Provider, {cascade: ["remove"]})
         
-        Services: ServiceEntity[];
-
-    /*@OneToMany(() => NotificationEntity, notification => notification.provider)
-        notification: ProviderEntity[];*/
-
-        
-    
+        Services: ServiceEntity[]; 
     
 }

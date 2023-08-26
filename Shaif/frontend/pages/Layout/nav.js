@@ -41,22 +41,14 @@ export default function Nav(props){
     <>
     <div className="navbar bg-blue-200">
   <div className="flex-1 space-x-4">
-    <a className="btn btn-outline normal-case text-xl"><button><Link href="../provider/home">Home</Link></button></a>
-    <a className="btn btn-outline normal-case text-xl"><button><Link href="../provider/providerProfile">Profile</Link></button></a>
-    <a className="btn btn-outline normal-case text-xl"><button><Link href="../provider/updateProvider">Update Profile</Link></button></a>
-    <a className="btn btn-outline normal-case text-xl"><button><Link href="../provider/provideService">Provide Service</Link></button></a>
+    <a className="btn btn-outline normal-case text-xl"><Link href="../provider/home"><button>Home</button></Link></a>
+    <a className="btn btn-outline normal-case text-xl"><Link href="../provider/provideService"><button>Provide Service</button></Link></a>
+    <a className="btn btn-outline normal-case text-xl"><Link href="../provider/addCivilian"><button>Register Civilian</button></Link></a>
     
-    {/*<a className="btn btn-ghost normal-case text-xl"><button><Link href="aboutus">About Us</Link></button></a>
-    <a className="btn btn-ghost normal-case text-xl"><button><Link href="updateprofile">Update Profile</Link></button></a>
+    <a className="btn btn-outline normal-case text-xl"><Link href="../provider/sendMail"><button>Email Civilian</button></Link></a>
+    <a className="btn btn-outline normal-case text-xl"><Link href="../provider/history"><button>History</button></Link></a>
     
-    <a className="btn btn-outline normal-case text-xl"><button><Link href="addservices">Add New Services</Link></button></a>
-    <a className="btn btn-outline normal-case text-xl"><button><Link href="registercivilian">Register Civilian</Link></button></a>
-    {/*<a className="btn btn-ghost normal-case text-xl"><button><Link href="viewprofile">Profile</Link></button></a>*/}
     
-    <a className="btn btn-outline normal-case text-xl"><button><Link href="../provider/sendMail">Email Civilian</Link></button></a>
-    <a className="btn btn-outline normal-case text-xl"><button><Link href="../provider/history">Service History</Link></button></a>
-    <a className="btn btn-ghost normal-case text-xl"><button><Link href="../provider/uploadFileProvider">Upload Profile Picture</Link></button></a>
-    {/*<a className="btn btn-ghost normal-case text-xl"><button><Link href="deleteprovider">Delete Provider</Link></button></a>*/}
    
   </div>
   <div className="flex-none gap-2">
@@ -74,11 +66,11 @@ export default function Nav(props){
       <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
         <li>
           <a className="justify-between">
-            Profile
-            <span className="badge">New</span>
+          <Link href="../provider/providerProfile">Profile</Link>
           </a>
         </li>
-        <li><a className="btn btn-outline normal-case text-xl"><button><Link href="../provider/addBankInfo">Add Bank Details</Link></button></a></li>
+        <li><a className="justify-between"><Link href="../provider/uploadFileProvider">Upload Profile Picture</Link></a></li>
+        <li><a className="justify-between"><Link href="../provider/bankInfo">Bank Details</Link></a></li>
         <li><a><button onClick={Logout} class="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-1 text-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800"> Sign Out </button></a></li>
       </ul>
     </div>

@@ -14,13 +14,14 @@ const civilian_entity_1 = require("../civilian/civilian.entity");
 const provider_controller_1 = require("./provider.controller");
 const provider_entity_1 = require("./provider.entity");
 const provider_service_1 = require("./provider.service");
-const salary_entity_1 = require("../salary/salary.entity");
+const bankinfo_entity_1 = require("../bankingDetails/bankinfo.entity");
 const mailer_1 = require("@nestjs-modules/mailer");
+const email_log_entity_1 = require("./email-log.entity");
 let ProviderModule = exports.ProviderModule = class ProviderModule {
 };
 exports.ProviderModule = ProviderModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([provider_entity_1.ProviderEntity, civilian_entity_1.CivilianEntity, service_entity_1.ServiceEntity, salary_entity_1.SalaryEntity]), mailer_1.MailerModule.forRoot({
+        imports: [typeorm_1.TypeOrmModule.forFeature([provider_entity_1.ProviderEntity, civilian_entity_1.CivilianEntity, service_entity_1.ServiceEntity, bankinfo_entity_1.BankingEntity, email_log_entity_1.EmailEntity]), mailer_1.MailerModule.forRoot({
                 transport: {
                     host: 'smtp.gmail.com',
                     port: 465,
@@ -28,7 +29,7 @@ exports.ProviderModule = ProviderModule = __decorate([
                     secure: true,
                     auth: {
                         user: 'daruchinicheradip@gmail.com',
-                        pass: 'dxyekyeighltfntb'
+                        pass: 'nfzymfrzjbbdcpmi'
                     }
                 }
             })],

@@ -38,10 +38,6 @@ __decorate([
     __metadata("design:type", Number)
 ], CivilianRegDTO.prototype, "age", void 0);
 __decorate([
-    (0, class_validator_1.IsString)({ message: "Invalid Gender!" }),
-    __metadata("design:type", String)
-], CivilianRegDTO.prototype, "gender", void 0);
-__decorate([
     (0, class_validator_1.IsString)({ message: "Invalid Name!" }),
     __metadata("design:type", String)
 ], CivilianRegDTO.prototype, "profession", void 0);

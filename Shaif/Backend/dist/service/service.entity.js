@@ -21,11 +21,7 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], ServiceEntity.prototype, "servicetype", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ length: 80, unique: true }),
-    __metadata("design:type", String)
-], ServiceEntity.prototype, "username", void 0);
+], ServiceEntity.prototype, "serviceType", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", Number)
@@ -33,7 +29,7 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], ServiceEntity.prototype, "usefullinks", void 0);
+], ServiceEntity.prototype, "usefullLinks", void 0);
 __decorate([
     (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", Number)

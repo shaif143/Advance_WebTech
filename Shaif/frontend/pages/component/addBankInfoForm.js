@@ -14,27 +14,6 @@ const BankInfoForm = () => {
         
     });
 
-    const [existingBankData, setExistingBankData] = useState(null);
-
-    useEffect(() => {
-        // Fetch existing bank information for the user
-        fetchExistingBankInfo();
-    }, []);
-
-    const fetchExistingBankInfo = async () => {
-        try {
-            const response = await axios.get(process.env.NEXT_PUBLIC_API_BASE_URL + '/getBankInfo', {
-                withCredentials: true
-            });
-            if (response.data) {
-                setExistingBankData(response.data);
-            }
-        } catch (error) {
-            console.error('Error fetching bank info:', error);
-        }
-    };
-
-
 
 
     const handleChange = (e) => {
@@ -57,8 +36,8 @@ const BankInfoForm = () => {
                 withCredentials: true
             });
             console.log(response.data);
-           // alert("Banking Information Added Successful!");
-            fetchExistingBankInfo(); // Fetch updated bank info after adding
+            alert("Banking Information Added Successful!");
+           
         } catch (error) {
             console.error('Bank Info could not added:', error);
             alert("Bank Info could not added!");
@@ -96,7 +75,7 @@ const BankInfoForm = () => {
                         </div>
 
                         <center>
-                            <button type="submit" class="text-white bg-green-500 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Provide</button>
+                            <button type="submit" class="text-white bg-green-500 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
                         </center>
 
                         <center>

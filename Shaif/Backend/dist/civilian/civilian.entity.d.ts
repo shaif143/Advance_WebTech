@@ -6,7 +6,6 @@ export declare class CivilianEntity {
     email: string;
     contact: number;
     age: number;
-    gender: string;
     profession: string;
     ProviderID: number;
     Provider: ProviderEntity;

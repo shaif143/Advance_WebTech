@@ -1,8 +1,7 @@
 export declare class ServiceAddDTO {
     id: number;
-    servicetype: string;
-    username: string;
+    serviceType: string;
     contact: number;
-    usefullinks: string;
+    usefullLinks: string;
     ProviderID: number;
 }

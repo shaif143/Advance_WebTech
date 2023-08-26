@@ -41,10 +41,6 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], CivilianEntity.prototype, "gender", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
 ], CivilianEntity.prototype, "profession", void 0);
 __decorate([
     (0, typeorm_1.Column)({ nullable: true }),

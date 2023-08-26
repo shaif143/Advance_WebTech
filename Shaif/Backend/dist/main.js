@@ -5,17 +5,20 @@ const app_module_1 = require("./app.module");
 const session = require("express-session");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
-    const express = require('express');
-    const cors = require('cors');
-    app.use(cors());
     app.use(session({
         secret: 'my-secret',
         resave: false,
         saveUninitialized: false,
-        cookie: {
-            maxAge: 300000
+        cookie: { secure: false,
+            httpOnly: false,
+            maxAge: 100000000000
         }
     }));
+    app.enableCors({
+        origin: true,
+        methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+        credentials: true,
+    });
     await app.listen(3000);
 }
 bootstrap();

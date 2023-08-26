@@ -21,9 +21,6 @@ export class CivilianRegDTO {
     @IsInt({message: "Invalid Age!"})
     age:number;
 
-    @IsString({message: "Invalid Gender!"})
-    gender:string;
-
     @IsString({message: "Invalid Name!"})
     profession:string;
 

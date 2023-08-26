@@ -3,21 +3,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ProviderModule } from './provider/provider.module';
 import { ServiceModule } from './service/service.module';
 import { CivilianModule } from './civilian/civilian.module';
-import { SalaryModule } from './salary/salary.module';
+import { BankingModule } from './bankingDetails/bankinfo.module';
+import { typeOrmConfig } from './config/typeorm.config';
+
+
+
 
 @Module({
-  imports: [ProviderModule, ServiceModule, CivilianModule, SalaryModule, TypeOrmModule.forRoot(
-    {
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: '123',
-      database: 'emergency_helpline_db',
-      autoLoadEntities: true,
-      synchronize: true,
-    }
-  )],
+  imports: [ProviderModule, ServiceModule, CivilianModule, BankingModule, TypeOrmModule.forRoot(typeOrmConfig),],
   controllers: [],
   providers: [],
 })

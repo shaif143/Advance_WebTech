@@ -28,6 +28,7 @@ export declare class ProviderInfoDTO {
     contact: number;
 }
 export declare class ProviderMessageDTO {
+    receiver: string;
     subject: string;
     message: string;
 }

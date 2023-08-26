@@ -20,7 +20,9 @@ export default function History( ) {
     <Layout>
     
 
-<Link  className="link link-primary" href="/provider/servicehistory">ALL Services</Link>
+<Link  className="link link-primary" href="/provider/serviceHistory">ALL Services</Link><br/><br/>
+<Link  className="link link-primary" href="/provider/civilianHistory">Registered Civilian</Link><br/><br/>
+<Link  className="link link-primary" href="/provider/emailHistory">Email History</Link>
 <br/>
  <br/>
 {/* <Link  className="link link-primary" href="/admindashboard/allmanager">ALL Manager</Link>

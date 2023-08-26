@@ -16,8 +16,6 @@ export class CivilianEntity {
     @Column()
     age:number;
     @Column()
-    gender:string;
-    @Column()
     profession:string;
     @Column({nullable:true})
     ProviderID:number;

@@ -33,8 +33,8 @@ export declare class ProviderController {
     viewBankInfo(session: any): Promise<BankingEntity[]>;
     viewCivilian(session: any): Promise<CivilianEntity[]>;
     viewEmails(session: any): Promise<EmailEntity[]>;
-    logoutManager(req: any): boolean;
-    getCivilianByProviderId(session: any): any;
     removeProvider(session: any): any;
+    getCivilianById(CivilianId: number, session: any): any;
     removeCivilian(CivilianId: number, session: any): any;
+    logoutManager(req: any): boolean;
 }

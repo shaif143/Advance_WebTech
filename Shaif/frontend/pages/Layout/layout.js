@@ -1,6 +1,8 @@
-import Header from "./header";
 
+import Header from "./header";
+import MyFooter from "./footer";
 import Nav from "./nav";
+
 
 
 
@@ -11,15 +13,14 @@ export default function Layout ({children}){
 
         <>
 
-        <Header></Header>
         <Nav> </Nav>
-       
-
-        <br></br>
+        <Header></Header>
+        
+          
         {children}
-        <br></br>
-        <br></br>
-        <h1>Footer</h1>
+        
+        <MyFooter/>
+        
 
        
 

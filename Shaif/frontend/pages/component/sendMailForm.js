@@ -42,7 +42,7 @@ const SendMailForm = () => {
             <div class="flex flex-wrap justify-center">
                 <div class="w-80">
 
-                    <h3 class="text-center mb-4 text-3xl font-bold text-black">Mail Details</h3>
+                    <h3 class="text-center mb-4 text-3xl font-bold text-black">Send Email to Civilian</h3>
                     <form class="mt-4" onSubmit={handleSubmit}>
                         <div class="mb-6">
                             <label for="receiver" class="block mb-2 text-sm font-medium text-black">To</label>

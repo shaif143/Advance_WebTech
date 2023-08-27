@@ -56,7 +56,7 @@ export class ProviderController {
            
             return session.username;
         } else {
-            return new NotFoundException({ message: "Manager Not Found!" });
+            return new NotFoundException({ message: "Provider Not Found!" });
         } 
 
         
@@ -206,20 +206,20 @@ export class ProviderController {
     }
 
 
+
+    @Delete('remove')
+    @UseGuards(SessionGuard)
+    removeProvider(@Session() session) : any {
+     this.ProviderService.removeProvider(session.username);
+     return "Account Deleted successfully";
+    }
+
+
   
 
 
 
-    @Post('logout')
-    
-    logoutManager(@Req() req) {
-        if (req.session.destroy()) {
-            console.log('Manager Sign Out');
-            return true;
-        } else {
-            throw new UnauthorizedException("Invalid Actions : Cannot Sign Out Manager!");
-        }
-    }
+   
 
 
 //     @Post('logout')
@@ -230,29 +230,22 @@ export class ProviderController {
   
 //   }
 
-    
-
-
-
-
-
-
-   
+ 
 
     //Provider can only search Civilian by their ID
-    @Get('search/Civilian')
+    // @Get('search/Civilian')
+    // @UseGuards(SessionGuard)
+    // getCivilianByProviderId (@Session() session) : any {
+    //     return this.ProviderService.getCivilianByProviderId(session.username);
+    // }
+
+    @Get('search/Civilian/:CivilianId')
     @UseGuards(SessionGuard)
-    getCivilianByProviderId (@Session() session) : any {
-        return this.ProviderService.getCivilianByProviderId(session.username);
-    }
+    getCivilianById(@Param('CivilianId', ParseIntPipe) CivilianId: number, @Session() session): any {
+    return this.ProviderService.getCivilianById(CivilianId, session.username);
+}
 
 
-
-    @Delete('remove')
-    //@UseGuards(SessionGuard)
-    removeProvider(@Session() session) : any {
-        return this.ProviderService.removeProvider(session.username);
-    }
     
     @Delete('remove/Civilian/:CivilianId')
     @UseGuards(SessionGuard)
@@ -261,25 +254,17 @@ export class ProviderController {
     }
 
 
+
+    @Post('logout')
     
+    logoutManager(@Req() req) {
+        if (req.session.destroy()) {
+            console.log('Provider Sign Out');
+            return true;
+        } else {
+            throw new UnauthorizedException("Invalid Actions : Cannot Sign Out Provider!");
+        }
+    }
 
-   
-
-    
-
-
-    
-
-
-
-
-
-    
-
-
-   
-
- 
-    
 
 }

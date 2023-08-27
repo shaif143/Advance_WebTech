@@ -36,7 +36,7 @@ export declare class ProviderService {
     viewBankInfo(username: string): Promise<BankingEntity[]>;
     viewCivilian(username: string): Promise<CivilianEntity[]>;
     viewEmails(providerUsername: string): Promise<EmailEntity[]>;
-    getCivilianByProviderId(ProviderUsername: string): Promise<ProviderEntity[]>;
+    getCivilianById(CivilianId: number, ProviderUsername: string): Promise<CivilianEntity>;
     removeProvider(ProviderUsername: string): Promise<void>;
-    removeCivilian(CivilianId: number, ProviderUsername: string): Promise<"Civilian Deleted!" | "Couldn't Delete!">;
+    removeCivilian(CivilianId: number, ProviderUsername: string): Promise<"Provider not found!" | "Civilian not found!" | "Civilian Deleted!" | "Couldn't Delete!">;
 }

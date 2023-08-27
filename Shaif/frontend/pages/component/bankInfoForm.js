@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Title from "../Layout/title";
 import SessionCheck from "../utils/sessionCheck";
 import { useRouter } from 'next/router';
+
 const BankDetails = () => {
     const [bankData, setBankData] = useState([]);
     const router=useRouter();
@@ -10,7 +11,7 @@ const BankDetails = () => {
     useEffect(() => {
         getBankInfo();
     }, []);
-
+    
 
     const getBankInfo = async () => {
         try {
@@ -18,8 +19,15 @@ const BankDetails = () => {
                 withCredentials: true // Include session cookies
             });
 
+            if(Array.isArray(response.data)) {
+
             setBankData(response.data); 
             console.log(response.data);
+            selectedFile(null);
+            }
+            else{
+             console.log('Error Fetching Bank Data:', error);  
+            }
         } catch (error) {
             console.log('Error Fetching Bank Data:', error);
         }
@@ -39,7 +47,9 @@ const BankDetails = () => {
                         <p>Useful Links: {bankData.routingNumber}</p>
                         
                     </div>
+
                 ))}
+                
             </div>
         </>
     );

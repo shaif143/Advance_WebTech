@@ -48,7 +48,7 @@ let ProviderController = exports.ProviderController = class ProviderController {
             return session.username;
         }
         else {
-            return new common_1.NotFoundException({ message: "Manager Not Found!" });
+            return new common_1.NotFoundException({ message: "Provider Not Found!" });
         }
     }
     uploadProvider(photoObj, session) {
@@ -117,23 +117,24 @@ let ProviderController = exports.ProviderController = class ProviderController {
     viewEmails(session) {
         return this.ProviderService.viewEmails(session.username);
     }
-    logoutManager(req) {
-        if (req.session.destroy()) {
-            console.log('Manager Sign Out');
-            return true;
-        }
-        else {
-            throw new common_1.UnauthorizedException("Invalid Actions : Cannot Sign Out Manager!");
-        }
-    }
-    getCivilianByProviderId(session) {
-        return this.ProviderService.getCivilianByProviderId(session.username);
-    }
     removeProvider(session) {
-        return this.ProviderService.removeProvider(session.username);
+        this.ProviderService.removeProvider(session.username);
+        return "Account Deleted successfully";
+    }
+    getCivilianById(CivilianId, session) {
+        return this.ProviderService.getCivilianById(CivilianId, session.username);
     }
     removeCivilian(CivilianId, session) {
         return this.ProviderService.removeCivilian(CivilianId, session.username);
+    }
+    logoutManager(req) {
+        if (req.session.destroy()) {
+            console.log('Provider Sign Out');
+            return true;
+        }
+        else {
+            throw new common_1.UnauthorizedException("Invalid Actions : Cannot Sign Out Provider!");
+        }
     }
 };
 __decorate([
@@ -286,27 +287,22 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ProviderController.prototype, "viewEmails", null);
 __decorate([
-    (0, common_1.Post)('logout'),
-    __param(0, (0, common_1.Req)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", void 0)
-], ProviderController.prototype, "logoutManager", null);
-__decorate([
-    (0, common_1.Get)('search/Civilian'),
+    (0, common_1.Delete)('remove'),
     (0, common_1.UseGuards)(session_guard_1.SessionGuard),
     __param(0, (0, common_1.Session)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Object)
-], ProviderController.prototype, "getCivilianByProviderId", null);
-__decorate([
-    (0, common_1.Delete)('remove'),
-    __param(0, (0, common_1.Session)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", Object)
 ], ProviderController.prototype, "removeProvider", null);
+__decorate([
+    (0, common_1.Get)('search/Civilian/:CivilianId'),
+    (0, common_1.UseGuards)(session_guard_1.SessionGuard),
+    __param(0, (0, common_1.Param)('CivilianId', common_1.ParseIntPipe)),
+    __param(1, (0, common_1.Session)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number, Object]),
+    __metadata("design:returntype", Object)
+], ProviderController.prototype, "getCivilianById", null);
 __decorate([
     (0, common_1.Delete)('remove/Civilian/:CivilianId'),
     (0, common_1.UseGuards)(session_guard_1.SessionGuard),
@@ -316,6 +312,13 @@ __decorate([
     __metadata("design:paramtypes", [Number, Object]),
     __metadata("design:returntype", Object)
 ], ProviderController.prototype, "removeCivilian", null);
+__decorate([
+    (0, common_1.Post)('logout'),
+    __param(0, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], ProviderController.prototype, "logoutManager", null);
 exports.ProviderController = ProviderController = __decorate([
     (0, common_1.Controller)('Provider'),
     __param(1, (0, typeorm_1.InjectRepository)(email_log_entity_1.EmailEntity)),

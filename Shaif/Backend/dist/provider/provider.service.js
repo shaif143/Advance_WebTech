@@ -150,28 +150,45 @@ let ProviderService = exports.ProviderService = class ProviderService {
             },
         });
     }
-    async getCivilianByProviderId(ProviderUsername) {
+    async getCivilianById(CivilianId, ProviderUsername) {
         console.log(ProviderUsername);
         const Provider = await this.ProviderRepo.findOneBy({ username: ProviderUsername });
-        const ProviderId = Provider.id;
-        return this.ProviderRepo.find({
-            where: { id: ProviderId },
-            relations: { Civilians: true }
+        if (!Provider) {
+            return null;
+        }
+        const Civilian = await this.CivilianRepo.findOne({
+            where: {
+                id: CivilianId,
+                Provider: Provider
+            }
         });
+        return Civilian;
     }
     async removeProvider(ProviderUsername) {
         const Provider = await this.ProviderRepo.findOneBy({ username: ProviderUsername });
         await this.ProviderRepo.delete(Provider.id);
     }
     async removeCivilian(CivilianId, ProviderUsername) {
+        console.log("CivilianId:", CivilianId);
+        console.log("ProviderUsername:", ProviderUsername);
         const Civilian = await this.CivilianRepo.findOneBy({ id: CivilianId });
         const Provider = await this.ProviderRepo.findOneBy({ username: ProviderUsername });
+        console.log("Civilian:", Civilian);
+        console.log("Provider:", Provider);
+        if (!Civilian) {
+            return "Civilian not found!";
+        }
+        if (!Provider) {
+            return "Provider not found!";
+        }
         const ProviderId = Provider.id;
         if (Civilian.ProviderID == ProviderId) {
             await this.CivilianRepo.delete(CivilianId);
+            console.log("Civilian Deleted!");
             return "Civilian Deleted!";
         }
         else {
+            console.log("Couldn't Delete!");
             return "Couldn't Delete!";
         }
     }

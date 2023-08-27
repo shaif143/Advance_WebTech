@@ -1,5 +1,4 @@
 import axios from 'axios';
-import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
 
 import SessionCheck from '../utils/sessionCheck';

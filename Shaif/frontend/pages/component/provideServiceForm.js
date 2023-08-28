@@ -9,8 +9,29 @@ const ProvideServiceForm = () => {
         serviceType: "",
         contact: 0,
         usefullLinks:"",
+        latitude: "",    // Added latitude and longitude to serviceData state
+        longitude: "",
         
     });
+
+    useEffect(() => {
+        // Fetch the user's current location when the component mounts
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition(
+                position => {
+                    const { latitude, longitude } = position.coords;
+                    setServiceData(prevData => ({
+                        ...prevData,
+                        latitude: latitude.toString(),
+                        longitude: longitude.toString(),
+                    }));
+                },
+                error => {
+                    console.error("Error getting user's location:", error);
+                }
+            );
+        }
+    }, []);
 
     const handleChange = (e) => {
         setServiceData({ ...serviceData, [e.target.name]: e.target.value });
@@ -32,6 +53,7 @@ const ProvideServiceForm = () => {
             });
             console.log(response.data);
             alert("Service Provided Successful!");
+            window.location.reload();
         } catch (error) {
             console.error('Service could not provided:', error);
             alert("Service could not provided!");
@@ -43,7 +65,7 @@ const ProvideServiceForm = () => {
           <SessionCheck /> 
 
             <br></br> <br></br>
-            <div class="flex flex-wrap justify-center z-1 relative">
+            <div class="flex flex-wrap justify-center z-1 relative" z-1>
                 <div>
                     <h3 class="text-center mb-4 text-3xl font-bold text-black"> Provided Services </h3>
                     <form class="mt-4" onSubmit={handleSubmit}>
@@ -63,7 +85,8 @@ const ProvideServiceForm = () => {
                         </div>
 
                         <center>
-                            <button type="submit" class="text-white bg-green-500 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Provide</button>
+                            <button type="submit" className="btn btn-outline btn-wide btn-info normal-case text-xl mb-80 hover:bg-deepskyblue">Provide</button>
+                            
                         </center>
 
                         <center>

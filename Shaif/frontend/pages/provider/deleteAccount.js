@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import SessionCheck from '../utils/sessionCheck';
 import { useRouter } from 'next/router';
-
+import Link from 'next/link';
 const DeleteProviderAccount = () => {
     const router = useRouter();
   const handleDelete = async () => {
@@ -48,7 +48,15 @@ const DeleteProviderAccount = () => {
   return (
     <div>
       <SessionCheck />
-      <button onClick={handleDelete}>Delete Account</button>
+      <center>
+      <p className='text-xl mt-52 text-warning'> Are you sure you want to delete the account? Once you delete your account, your information will be deletd. </p>
+      </center>
+      <div className="flex justify-center mt-8">
+      <button onClick={handleDelete} type="submit" className="btn btn-outline btn-wide btn-error normal-case text-xl mb-12 hover:bg-red">Delete Account</button>
+    </div>
+    <center>
+    <Link href="/provider/home" className="link link-info text-xl">If you don't want to delete your account, click here.</Link>
+    </center>
     </div>
   );
 };

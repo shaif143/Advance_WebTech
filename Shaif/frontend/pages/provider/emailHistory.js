@@ -23,9 +23,11 @@ const EmailHistory = () => {
            
                 <SessionCheck />
 
+                <center className="mt-12">
                 <div>
                     <DynamicEmailHistory/>
                 </div>
+                </center>
                 
               </Layout> 
              

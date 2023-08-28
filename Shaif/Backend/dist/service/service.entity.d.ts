@@ -4,6 +4,8 @@ export declare class ServiceEntity {
     serviceType: string;
     contact: number;
     usefullLinks: string;
+    latitude: string;
+    longitude: string;
     ProviderID: number;
     Provider: ProviderEntity;
 }

@@ -37,9 +37,21 @@ const FileUploadComponent = () => {
     
     <>
     <SessionCheck></SessionCheck>
-      
-      <input type="file" accept=".jpg, .jpeg, .png, .webp, .gif" onChange={handleFileChange} />
-      <button onClick={handleUpload}>Upload</button>
+
+
+
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-900 dark:text-white" for="file_input">Upload Image File</label>
+            <input id="file_input" type="file" accept=".jpg, .jpeg, .png, .webp, .gif" onChange={handleFileChange} class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" />
+              <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">PNG, JPG, JPEG, WEBP or GIF (MAX. 300kb).</p>
+                </div>
+
+                <center>
+                            
+                <button onClick={handleUpload} type="submit" className="btn btn-outline btn-wide btn-info normal-case text-xl mb-80 hover:bg-deepskyblue">Upload</button>
+                <br></br><br></br>
+                </center>
+               
     </>
   );
 };

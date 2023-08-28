@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState, useEffect } from 'react';
 import Title from "../Layout/title";
 import SessionCheck from "../utils/sessionCheck";
+import Link from "next/link";
 
 
 const ProviderProfileForm = () => {
@@ -35,17 +36,17 @@ const ProviderProfileForm = () => {
                 <div className="flex flex-col items-center pb-10">
                 <img src={process.env.NEXT_PUBLIC_API_BASE_URL+ `/photo?${Date.now()}`}  />
 
-                    <h5 >{providerData.name}</h5>
+                    <h5 className="text-3xl" >{providerData.name}</h5>
 
-                    <div className="flex mt-4 space-x-3 md:mt-6">
+                    <div className="flex mt-4 space-x-3 md:mt-2">
                         <center>
                             <p>Email : {providerData.email}</p>
                             <p>Contact : {providerData.contact}</p>
                         </center>
                     </div>
 
-                    <div className="flex mt-4 space-x-3 md:mt-6">
-                        <a href="../provider/updateProvider" className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Edit Provider</a>
+                    <div className="flex mt-4 space-x-3 md:mt-6 mb-16">
+                        <Link href="../provider/updateProvider" className="link link-info">Do you want to edit profile?</Link>
                     </div>
                 </div>
             </div>

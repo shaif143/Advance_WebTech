@@ -39,12 +39,13 @@ const AddCivilian = () => {
                 },
                 withCredentials: true
             });
-            console.log(response.data);
-            alert("Civilian Added Successful!");
+                console.log(response.data);
+                alert("Civilian Added Successful!");
+                window.location.reload();       
             
         } catch (error) {
-            console.error('Civilian could not added:', error);
-            alert("Civilian could not added!");
+            console.error('Username is already used:', error);
+            alert("Username is already used!");
         }
     };
 
@@ -89,7 +90,7 @@ const AddCivilian = () => {
                         </div>
 
                         <center>
-                            <button type="submit" class="text-white bg-green-500 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Register</button>
+                        <button type="submit" className="btn btn-outline btn-wide btn-info normal-case text-xl mb-80 hover:bg-deepskyblue">Register</button>
                         </center>
 
                         <center>

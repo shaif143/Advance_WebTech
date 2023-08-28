@@ -33,9 +33,11 @@ const EmailHistory = () => {
 
                 {emailDataList.map((emailData, index) => (
                     <div key={index} style={{ marginBottom: '20px' }}>
+                        <h5>ID: {emailData.id}</h5>
                         <h5>To: {emailData.receiver}</h5>
                         <h5>Subject: {emailData.subject}</h5>
                         <p>Message: {emailData.message}</p>
+                        <p>Sent Time: {emailData.sentAt}</p>
                         
                         
                     </div>

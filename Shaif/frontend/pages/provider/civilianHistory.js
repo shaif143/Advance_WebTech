@@ -23,9 +23,12 @@ const CivilianHistory = () => {
            
                 <SessionCheck />
 
-                <div>
-                    <DynamicCivilianHistory/>
-                </div>
+        
+              <center className="mt-12">
+              <div><DynamicCivilianHistory /></div>
+              </center> 
+      
+                
                 
               </Layout> 
              

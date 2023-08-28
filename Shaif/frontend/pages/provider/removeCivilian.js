@@ -19,17 +19,17 @@ const RemoveCivilianPage = () => {
         <SessionCheck/>
         <Title page ="RemoveCivilian"></Title>
             <Layout>
-            <div className="flex flex-col min-h-screen">
+       
 
-            <div className="hero min-h-screen" style={{backgroundImage: 'url(/home.png)'}}>
-            <div className="hero-overlay bg-opacity-80"></div>
-            <div className="hero-content text-center text-neutral-content">
-            <div className="max-w-md">
-            <div><DynamicRemoveCivilianForm  /></div>
+
+            <div className="hero min-h-screen bg-base-200">
+            <div className="hero-content text-center">
+              <div className="max-w-md">
+              <div><DynamicRemoveCivilianForm  /></div>
+                
             </div>
             </div>
-            </div>
-            </div> 
+          </div>
 
             </Layout>
         </>

@@ -19,12 +19,23 @@ const SearchCivilianForm = () => {
                 {
                     withCredentials: true
                 });
+
+                if(civilianId!=[0]){
+
+                console.log(response.data);
+                setCivilianData(response.data); 
+                
+
+                }
+                else{
+                    alert("Civilian id didn't match!");
+                    window.location.reload();
+                }
             
-            console.log(response.data);
-            setCivilianData(response.data); // Store the fetched civilian data in state
+            
         } catch (error) {
             console.error(error);
-            setCivilianData(null); // Clear civilian data if search fails
+            setCivilianData(null); 
             alert("Civilian Search Failed!");
         }
     };
@@ -33,46 +44,54 @@ const SearchCivilianForm = () => {
         <>
             <SessionCheck /> 
 
-            <div>
-                <form onSubmit={handleSubmit}>
-                    <center>
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <td>Civilian ID:</td>
-                                    <td>
-                                        <input
+
+            <div className="flex flex-wrap justify-center">
+                <div>
+                    <br/><br/><br/>
+                    <h3 className="text-center mb-4 text-3xl font-bold text-black">  Search Civilian by ID </h3>
+                    <form className="mt-4" onSubmit={handleSubmit}>
+                        <div className="mb-6">
+                            <input
                                             type="number"
                                             name="civilianId"
-                                            placeholder="Enter civilian ID to search"
+                                            placeholder="Enter civilian ID "
                                             value={civilianId}
                                             onChange={handleChange}
                                             required
-                                        />
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                                            className="text-center shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
+                       <br/><br/>
+                      <center> <button type="submit" className="btn btn-outline btn-wide btn-info normal-case text-xl mb-8 hover:bg-deepskyblue">Search</button></center>
 
-                        <br />
+                         </div>
+                    </form>                     
+               
+            
+                        
+                        
 
-                        <input type="submit" name="searchButton" value="SEARCH" />
-                    </center>
-                </form>
+
+                        
+                  
                 
+                <div>
                 {civilianData && (
-                    <div>
-                        <h2>Civilian Details:</h2>
-                        <p>Civilian ID: {civilianData.id}</p>
-                        <p>Civilian Name: {civilianData.name}</p>
-                        <p>Civilian Username: {civilianData.username}</p>
-                        <p>Civilian Email: {civilianData.email}</p>
-                        <p>Civilian Contact: {civilianData.contact}</p>
-                        <p>Civilian Age: {civilianData.age}</p>
-                        <p>Civilian Profession: {civilianData.profession}</p>
                     
-                    </div>
+                        
+                        <center>
+                        <h3 className="text-center text-xl font-bold text-black">Civilian Details:</h3>
+                        <p className="text-center text-xl text-black">Civilian ID: {civilianData.id}</p>
+                        <p className="text-center text-xl text-black">Civilian Name: {civilianData.name}</p>
+                        <p className="text-center text-xl text-black">Civilian Username: {civilianData.username}</p>
+                        <p className="text-center text-xl text-black">Civilian Email: {civilianData.email}</p>
+                        <p className="text-center text-xl text-black">Civilian Contact: {civilianData.contact}</p>
+                        <p className="text-center text-xl text-black">Civilian Age: {civilianData.age}</p>
+                        <p className="text-center text-xl mb-80 text-black">Civilian Profession: {civilianData.profession}</p>
+                        </center>
+                        
+                    
                 )}
+                </div>
+            </div>
             </div>
         </>
     );

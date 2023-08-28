@@ -2,7 +2,6 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useAuth } from '../utils/authContext';
 import SessionCheck from '../utils/sessionCheck';
 
 const LoginForm = () => {
@@ -13,7 +12,7 @@ const LoginForm = () => {
   const [usernameError, setUsernameError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [error, setError] = useState('');
-  // const { login } = useAuth();
+   
 
   useEffect(() => {
     if (typeof window !== 'undefined') // checks if the code is running on the client-side and not on the server-side.
@@ -67,6 +66,7 @@ const LoginForm = () => {
     else if (username && password) {
       const res = await doLogin(username, password);
       console.log(res);
+      localStorage.setItem('shouldResumeTimer', 'true');
     }
   };
 

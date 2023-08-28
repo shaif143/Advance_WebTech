@@ -10,6 +10,12 @@ export class ServiceAddDTO {
     @IsNotEmpty({message: "Contact must be provided!"})
     contact:number;
 
+    
+    latitude:string;
+
+   
+    longitude:string;
+
     usefullLinks:string;
 
     ProviderID:number;

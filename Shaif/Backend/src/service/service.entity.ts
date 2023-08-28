@@ -16,6 +16,12 @@ export class ServiceEntity {
    
     @Column()
     usefullLinks:string;
+
+    @Column({nullable:true})
+    latitude:string;
+
+    @Column({nullable:true})
+    longitude:string;
     
     @Column({nullable:true})
     ProviderID:number;

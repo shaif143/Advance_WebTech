@@ -13,7 +13,7 @@ plugins: [
   daisyui: {
     themes: [
      
-      "pastel",
+      "pastel", "aqua",
      
       
     ],

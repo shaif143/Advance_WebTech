@@ -1,13 +1,11 @@
 import { createContext, useContext, useState } from 'react';
 import axios from 'axios';
-import { useRouter } from 'next/router';
+import Cookies from 'js-cookie';
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-    
-    const router = useRouter();
-    const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null);
 
   const login = (username, cookie) => {
     setUser({ username, cookie });
@@ -15,12 +13,9 @@ export const AuthProvider = ({ children }) => {
   };
 
   const checkUser = () => {
-
-    console.log("username: " + user.username)
-    console.log("cookie: " + user.cookie)
-
-
-    if(user.username != null && user.cookie != null) {
+    console.log("user:  "+user.username)
+    console.log("user:  "+user.cookie)
+    if(user.username!=null && user.cookie!=null) {
       return true;
     }
     else
@@ -32,34 +27,48 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
 
-    doLogOut()
+    Logout()
   };
-  async function doLogOut() {
+  
+  async function Logout() {
     try {
-      const response = await axios.post(process.env.NEXT_PUBLIC_API_ENDPOINT + '/logout',
-        {
-         
-          withCredentials: true
-        }
-      );
-      console.log(response)
-        setUser(null);
-        document.cookie = null;
+        const response = await axios.post(process.env.NEXT_PUBLIC_API_BASE_URL + '/logout',
+            null,
+            {
+                withCredentials: true, // Send cookies along with the request
+            }
+        );
 
-        router.push('../provider/login');
+        if (response.status === 201) {
+            sessionStorage.removeItem('username');
+            setUsername(null);
+            //document.cookie = ''; // Clear cookies
+            const cookies = Cookies.get();
+            for (const cookieName in cookies) {
+              Cookies.remove(cookieName);
       
-
+            }
+            localStorage.setItem('shouldResumeTimer', 'false');
+            localStorage.removeItem('timeElapsed');
+            sessionStorage.removeItem('email')
+      
+            console.log("Cookie distroy?"+document.cookie)
+            router.push('../provider/login');
+        } else {
+            console.error('Sign-out failed:', response);
+        }
     } catch (error) {
-      console.log(error);
+        console.error('Sign-out error:', error);
     }
+
   }
   return (
-      <>
     <AuthContext.Provider value={{ user, login, logout,checkUser }}>
       {children}
     </AuthContext.Provider>
-    </>
   );
+
+
 };
 
 export const useAuth = () => useContext(AuthContext);

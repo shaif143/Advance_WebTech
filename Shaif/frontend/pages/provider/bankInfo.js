@@ -27,7 +27,7 @@ const BankDetails = () => {
                     <DynamicBankDetails/>
                 </div>
                 <div>
-                <Link href="addBankInfo"><button>Add Bank Details</button></Link>
+                <Link className="link link-info" href="addBankInfo">If you don't see your bank details, click here to add.</Link>
                 </div>
                 
               </Layout> 

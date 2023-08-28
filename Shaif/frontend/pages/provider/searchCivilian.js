@@ -24,7 +24,9 @@ const SearchCivilian = () => {
                 <SessionCheck />
 
                 <div>
+                  
                     <DynamicSearchCivilian/>
+                    
                 </div>
                 
               </Layout> 

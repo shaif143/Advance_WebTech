@@ -32,6 +32,14 @@ __decorate([
 ], ServiceEntity.prototype, "usefullLinks", void 0);
 __decorate([
     (0, typeorm_1.Column)({ nullable: true }),
+    __metadata("design:type", String)
+], ServiceEntity.prototype, "latitude", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ nullable: true }),
+    __metadata("design:type", String)
+], ServiceEntity.prototype, "longitude", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", Number)
 ], ServiceEntity.prototype, "ProviderID", void 0);
 __decorate([

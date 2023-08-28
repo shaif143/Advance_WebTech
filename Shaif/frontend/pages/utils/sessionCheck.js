@@ -7,6 +7,7 @@ export default function SessionCheck() {
     useEffect(() => {
         const session = sessionStorage.getItem('username');
         if (!session) {
+            localStorage.removeItem('timeElapsed');
             router.push('../provider/login');
         }
     }, []);

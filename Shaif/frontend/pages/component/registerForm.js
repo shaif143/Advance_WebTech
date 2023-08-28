@@ -45,7 +45,7 @@ const RegisterForm = () => {
 
   return (
     <>
-      <div class="flex flex-wrap justify-center">
+      <div class="flex flex-wrap justify-center mt-0 pt-0">
         <div class="w-80">
 
           <h3 class="text-center mb-4 text-3xl font-bold text-white">Create Provider</h3>
@@ -74,7 +74,7 @@ const RegisterForm = () => {
             <center>
               <button type="submit" class="text-white bg-green-500 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Sign up</button>
               <br></br><br></br>
-              <Link href="../provider/login" class="font-medium text-blue-400 dark:text-blue-500 hover:underline">Already Registered?</Link>
+              <Link href="../provider/login" class="font-medium text-blue-400 dark:text-blue-500 hover:underline pb-40">Already Registered?</Link>
             </center>
           </form>
         </div>

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
 
 import SessionCheck from '../utils/sessionCheck';
+import BankDetails from './bankInfoForm';
 
 const BankInfoForm = () => {
     const [bankData, setBankData] = useState({
@@ -35,12 +36,16 @@ const BankInfoForm = () => {
                 },
                 withCredentials: true
             });
-            console.log(response.data);
+
+            
+                console.log(response.data);
             alert("Banking Information Added Successful!");
+           
+            
            
         } catch (error) {
             console.error('Bank Info could not added:', error);
-            alert("Bank Info could not added!");
+            alert("You have already added bank details. Please contact administrator.");
         }
     };
 
@@ -75,7 +80,7 @@ const BankInfoForm = () => {
                         </div>
 
                         <center>
-                            <button type="submit" class="text-white bg-green-500 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
+                            <button type="submit" className="btn btn-outline btn-wide btn-info normal-case text-xl mb-24 hover:bg-deepskyblue">Save</button>
                         </center>
 
                         <center>
